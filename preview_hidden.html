@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta charset="UTF-8">
+
+		<title>我的待办收件箱</title>
+
+		<script
+			id="sap-ui-bootstrap"
+			src="resources/sap-ui-core.js"
+			data-sap-ui-theme="sap_bluecrystal"
+			data-sap-ui-libs="sap.m,sap.ui.layout,sap.ui.ux3"
+			data-sap-ui-xx-bindingSyntax="complex"
+			data-sap-ui-resourceroots='{
+				"accenture.com.ui.zmyinbox": "./"
+			}' >
+		</script>
+
+		<script>
+                jQuery.sap.require("sap.ui.thirdparty.datajs");
+                
+				sap.ui.localResources("view");
+				var app = new sap.m.App({initialPage:"OverView"});
+				
+				//每个tile注册一个splitApp，用于内部导航
+			    var TaskList = sap.ui.jsview("TaskList", "accenture.com.ui.zmyinbox.view.TaskList.App");
+				app.addPage(TaskList);
+			
+				//每个tile注册一个splitApp，用于内部导航
+			    var ProcessTrack = sap.ui.jsview("ProcessTrack", "accenture.com.ui.zmyinbox.view.ProcessTrack.App");
+				app.addPage(ProcessTrack);
+				
+				//加载标示，用于解决打开离线过慢的问题
+			    var busyDialog = new sap.m.BusyDialog();
+				
+				//开始加载  
+				function startApp(context) {
+                    setModel();
+					var OverView = sap.ui.view({id:"OverView", viewName:"accenture.com.ui.zmyinbox.view.Overview", type:sap.ui.core.mvc.ViewType.XML  });
+					OverView.addStyleClass("MyCommision_Page");
+					app.addPage(OverView);
+
+					app.placeAt("content");
+				}
+				
+				//设置数据模型
+				function setModel(){
+				    var gContext={PT:{},TL:{}};
+				    var overviewModel = new sap.ui.model.json.JSONModel(gContext);
+            		sap.ui.getCore().setModel(overviewModel, "overviewModel");
+				    
+				    
+				    var oModel;
+                    //set default model using standard api
+                    var sServiceUrl = "/sap/opu/odata/IWPGW/TASKPROCESSING;mo;v=2";
+        			oModel = new sap.ui.model.odata.ODataModel(sServiceUrl, true);
+        			sap.ui.getCore().setModel(oModel,"standardAPI");
+
+                    //set custom model using gateway api
+            		var sServiceUrlCustom = "/sap/opu/odata/SAP/ZBPMHIS_SRV";
+                    var oModelTask = new sap.ui.model.odata.ODataModel(sServiceUrlCustom, true);
+                    sap.ui.getCore().setModel(oModelTask,"customAPI");
+                    
+                    
+            		// set i18n model
+            		var i18nModel = new sap.ui.model.resource.ResourceModel({
+            			bundleUrl : "./i18n/messageBundle.properties"
+            		});
+            		sap.ui.getCore().setModel(i18nModel, "i18n");
+            		
+            		// set device model 
+            		var deviceModel = new sap.ui.model.json.JSONModel({
+            			isPhone : jQuery.device.is.phone,
+            			isNoPhone : !jQuery.device.is.phone,
+            			listMode : (jQuery.device.is.phone) ? "None" : "SingleSelectMaster",
+            			listItemType : (jQuery.device.is.phone) ? "Active" : "Inactive"
+            		});
+            		deviceModel.setDefaultBindingMode("OneWay");
+            		sap.ui.getCore().setModel(deviceModel,"device");
+				}
+				
+				startApp();
+		</script>
+		<link rel="stylesheet" type="text/css" href="css/Master.css">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="stylesheet" type="text/css" href="css/customerTile.css">
+
+	<script src='http://localhost:1234/webide/plugins/pluginrepository/hybrid/cordovafacade/cordova.js' data-original-url='index.html'></script>
+<style>#interactive.viewport video{width:320px;height:240px;}
+#interactive.viewport .drawingBuffer{width:320px;height:240px;position:absolute;}</style></head>
+	<body class="sapUiBody" id="content">
+	</body>
+</html>

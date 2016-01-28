@@ -1,0 +1,107 @@
+/*.myCommisionTrack_tile{*/
+/*    margin-top:10px;*/
+/*    margin-left:30px;*/
+/*}*/
+/*.myCommisionTrack_tile_2{*/
+/*    margin-top:10px;*/
+/*    margin-left:30px;*/
+/*    font-size: 16px;*/
+/*    font-family: Arial,Helvetica,sans-serif;*/
+/*}*/
+.myCommisionTrack_toolbar{
+    margin-left: 30px;
+    width: 110px;
+    background-color: rgb(42,163,173);
+}
+.sapMLabel.sapMLabelTBHeader {
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 1rem;
+    font-weight: normal;
+    color: white;
+    text-shadow: 0 0.0625rem 0 rgba(255,255,255,0.5);
+}
+.myCommisionTrack_tile_position{
+    margin-left:30px;
+    margin-top: 10px;
+    height: 200px;
+}
+.myCommionOvwrview_toolbar{
+    margin-top:10px;
+    margin-left:10px;
+    
+}
+.myCommionOvwrview_toolbar1{
+    text-align: center;
+    width:180px;
+    margin-top:10px;
+    margin-left:0px;
+    
+}
+.sapUiTv{
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 15px;
+}
+.sapUiTvH {
+    font-size: 45px;
+}
+.myCommisionOverLook_HorizontalLayout_Img{
+    margin-top: 50px;
+    width: 70px;
+}
+
+/*.myCommisionTrack_backGround{*/
+/*    background-color: rgb(23,126,151);*/
+/*}*/
+/*.MyCommisionOverview_footer{*/
+/*    height:300px;*/
+/*}*/
+.myCommisionOverview_container{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+/*.MatrixLayoutRow_baoLi.sapUiHLayoutChildWrapper{*/
+/*        white-space: normal;*/
+/*    display: inline-block;*/
+/*    vertical-align: bottom;*/
+/*}*/
+.MatrixLayoutRow_yiBaoLiu{
+    text-align:left;
+    color: red;
+    font-size: 18px;
+    font-weight: bold;
+}
+.MatrixLayoutRow_jiuXu{
+    text-align:left;
+    color:rgb(245, 192, 2);
+    font-size: 18px;
+    font-weight: bold;
+}
+.MatrixLayoutRow_jinXingZhong{
+    text-align:left;
+    font-size: 18px;
+    font-weight: bold;
+}
+.MatrixLayoutRow_yiWanCheng{
+    text-align:left;
+    color:green;
+    font-size: 18px;
+    font-weight: bold;
+}
+.MatrixLayoutRow_track_textview{
+    text-align:left;
+    font-size: 45px;
+    font-weight: bold;
+}
+.MyCommision_Page{
+    background-color:rgb(38,156,169);
+}
+/*.CommisionTrackResult_panel{*/
+/*    margin-left: 2%;*/
+/*}*/
+.CommissionTrack_backGroundColor{
+    background-color: rgb(226, 226, 226);
+}
+/*.verticalNavigation_height{*/
+/*    height:100%;*/
+/*}*/

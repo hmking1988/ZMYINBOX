@@ -1,0 +1,170 @@
+<core:View
+	controllerName="accenture.com.ui.zmyinbox.view.TaskList.Detail"
+	xmlns="sap.m"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:suite="sap.suite.ui.commons"
+	xmlns:core="sap.ui.core" 
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page
+		title="{i18n>DetailTitle}"
+		class="sapUiFioriObjectPage"
+		showNavButton="{device>/isPhone}"
+		navButtonPress="handleNavButtonPress" >
+		<ObjectHeader 
+			title="{TaskTitle}"
+		 >
+			<attributes> 
+			 	<ObjectAttribute text="{BuyerName}" /> 
+			 	<ObjectAttribute text="{CreatedByBp}" /> 
+				<ObjectAttribute text="{ 
+					path: 'CreatedOn', 
+					formatter: 'accenture.com.ui.zmyinbox.util.Formatter.date' 
+				}" />
+			</attributes> 
+		</ObjectHeader>
+		<IconTabBar 
+			expanded="{device>/isNoPhone}"
+			select="handleIconTabBarSelect">
+            <customData>
+				<core:CustomData id="mycustomdata" key="task-instanceid" value="{InstanceID}" writeToDom="false">
+				</core:CustomData>
+			</customData>
+			<items> 
+					<IconTabFilter 
+						icon="sap-icon://message-information"
+						key="TaskInfo"
+						text="任务信息">
+						<form:SimpleForm 
+								id="TaskInfoForm" 
+								minWidth="1024" >
+								<core:Title text="任务信息" /> 
+								<Label text="主题"/> 
+								<Text text="{TaskDefinitionName}" /> 
+								<Label text="处理人"/> 
+								<Text text="{ 
+								                path: 'Status', 
+								                formatter: 'accenture.com.ui.zmyinbox.util.Formatter.processor' 
+						                    	}"  /> 
+								<Label text="状态"/> 
+								<Text text="{ 
+								                path: 'Status', 
+								                formatter: 'accenture.com.ui.zmyinbox.util.Formatter.statusText' 
+						                    	}" />
+								<Label text="优先级"/> 
+								<Text text="{ 
+								                path: 'Priority', 
+								                formatter: 'accenture.com.ui.zmyinbox.util.Formatter.priorityText' 
+							                }" /> 
+						</form:SimpleForm>
+					</IconTabFilter>
+					<IconTabSeparator icon="sap-icon://open-command-field" />
+					<IconTabFilter 
+						icon="sap-icon://business-by-design"
+						key="CustomData"
+						text="定制化信息">
+                		<Table
+                			headerText="定制化信息"
+                			items="{oTaskCD}" >
+                			<columns>
+                				<Column
+                					minScreenWidth="Tablet"
+                					demandPopin="true"
+                					hAlign="Center" >
+                				</Column>
+                				<Column
+                					minScreenWidth="Tablet"
+                					demandPopin="true"
+                					hAlign="Center" >
+                				</Column>
+                			</columns>
+                			<ColumnListItem >
+                				<cells>
+                					<Text
+                						text="{Label}"/>
+                					<Text
+                						text="{Value}"/>
+                				</cells>
+                			</ColumnListItem>
+                		</Table>
+					</IconTabFilter>
+					<IconTabSeparator icon="sap-icon://open-command-field" />
+					<IconTabFilter 
+						icon="sap-icon://activities"
+						key="BPMHIS"
+						text="审批流信息">
+                		<suite:Timeline 
+                			id="idTimeline"
+                			enableScroll="false"
+                			showHeaderBar="false"
+                			sort="false"
+                			growing="false"
+                		 	width="10%"
+                			content="{oTaskHis}">
+                				<suite:content>
+                					<suite:TimelineItem 
+                						id="idTimelineItem" 
+                						dateTime="{Executiontime}"
+                						userName="{Agentname}"
+                						userNameClickable = "true"
+                						userNameClicked ="attachUserNameClicked"
+                						title="{
+                						        path:'Approvestate',
+                						        formatter:'accenture.com.ui.zmyinbox.util.Formatter.approveText'
+                						}"
+                						icon="{
+                						        path:'Approvestate',
+                						        formatter:'accenture.com.ui.zmyinbox.util.Formatter.approveIcon'
+                						}"
+                						text="{Approvememo}">
+                					</suite:TimelineItem>
+                				</suite:content>
+                		</suite:Timeline>
+                	</IconTabFilter>
+
+			</items> 
+		</IconTabBar>
+
+		<footer> 
+			<Bar id="mybar">
+				<contentRight>
+					<Button
+					    id="claimButton"
+						text="{i18n>ClaimButtonText}"
+						icon="sap-icon://cause"
+						visible="{ 
+								                path: 'Status', 
+								                formatter: 'accenture.com.ui.zmyinbox.util.Formatter.claimButtonVisible' 
+						                    	}" 
+						press="handleClaim" />
+					<Button
+					    id="releaseButton"
+						text="{i18n>ReleaseButtonText}"
+						icon="sap-icon://action"
+						visible="{ 
+								                path: 'Status', 
+								                formatter: 'accenture.com.ui.zmyinbox.util.Formatter.releaseButtonVisible' 
+						                    	}" 
+						press="handleRelease" />
+					<Button
+                        id="forwardButton"
+						text="{i18n>ForwardButtonText}"
+						icon="sap-icon://collaborate"
+						visible="{ 
+								                path: 'Status', 
+								                formatter: 'accenture.com.ui.zmyinbox.util.Formatter.forwardButtonVisible' 
+						                    	}"
+						press="onForwardPopUp" />
+					<Button
+					    id="openButton"
+						text="{i18n>OpenButtonText}"
+						icon="sap-icon://open-folder"
+						visible="{ 
+								                path: 'Status', 
+								                formatter: 'accenture.com.ui.zmyinbox.util.Formatter.openButtonVisible' 
+						                    	}"
+						press="handleOpen" />
+				</contentRight>
+			</Bar>
+		</footer>
+	</Page>
+</core:View>

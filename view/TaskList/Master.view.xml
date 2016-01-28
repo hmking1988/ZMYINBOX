@@ -1,0 +1,108 @@
+<core:View
+	controllerName="accenture.com.ui.zmyinbox.view.TaskList.Master"
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core" >
+	<Page
+		title="{i18n>MasterTitle}" 
+		showNavButton="true" 
+		navButtonPress="back"
+		>
+		<subHeader> 
+			<Bar> 
+				<contentLeft> 
+					<SearchField 
+						search="handleSearch"
+						width="100%" >
+					</SearchField>
+				</contentLeft> 
+			</Bar>
+		</subHeader>
+		<List
+			id="list"
+			mode="{device>/listMode}" 
+			select="handleListSelect"
+			growing="true"
+			growingTriggerText="{i18n>Loadmore}"
+			growingScrollToLoad="false"
+			growingFinished="handleGrowingFinished"
+			growingThreshold="50"
+			items="{/}" >
+			<ObjectListItem
+			    title="{ 
+								parts: ['CreatedByName','TaskTitle'], 
+								formatter: 'accenture.com.ui.zmyinbox.util.Formatter.taskTitle' 
+							}"
+				type="{device>/listItemType}" 
+				press="handleListItemPress"
+				icon="{ 
+								path: 'Status', 
+								formatter: 'accenture.com.ui.zmyinbox.util.Formatter.statusIcon' 
+							}" 
+				class="customListItem">
+                <customData>
+					<core:CustomData key="listitem-status" 
+					                 value="{ 
+                								path: 'Status', 
+                								formatter: 'accenture.com.ui.zmyinbox.util.Formatter.statusCustonData' 
+                							}" 
+							        writeToDom="true">
+					</core:CustomData>
+				</customData>
+				 <attributes> 
+				 	<ObjectAttribute text="{
+				 	                            path:'CreatedOn',
+				 	                            formatter:'accenture.com.ui.zmyinbox.util.Formatter.date'
+				 	}" /> 
+				 </attributes> 
+				 <firstStatus>
+					<ObjectStatus 
+						text="{ 
+								path: 'Status', 
+								formatter: 'accenture.com.ui.zmyinbox.util.Formatter.statusText' 
+							}" 
+						state="{ 
+								path: 'Status', 
+								formatter: 'accenture.com.ui.zmyinbox.util.Formatter.statusState' 
+							}" 
+					/>
+				 </firstStatus> 
+			</ObjectListItem>
+		</List>
+		<footer> 
+			<Bar id="myMasterBar">
+					<contentRight>
+    					<Button
+    					    id="multiSelect"
+    					    tooltip="批量处理"
+    						icon="sap-icon://multi-select"
+    						press="onShowMultiSelect" />
+						<Select 
+								id="groupSelect"
+								tooltip="分组"
+								change="handleGroup" 
+								icon="sap-icon://group-2" 
+								type="IconOnly" 
+								selectedKey="Status" 
+								autoAdjustWidth="true" > 
+								<core:Item 
+										key="None" 
+										text="{i18n>MasterGroupNone}"/> 
+								<core:Item 
+										key="Status" 
+										text="{i18n>MasterGroupStatus}"/> 
+							</Select>
+    					<Button
+    					    id="filter"
+    					    tooltip="过滤"
+    						icon="sap-icon://filter"
+    						press="onShowFilter" />
+    					<Button
+    					    id="refresh"
+    					    tooltip="刷新"
+    						icon="sap-icon://refresh"
+    						press="onRefresh" />	
+					</contentRight>
+			</Bar> 
+		</footer>
+	</Page>
+</core:View>

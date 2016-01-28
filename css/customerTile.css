@@ -1,0 +1,20 @@
+.sapMCustomTileContent{
+    /*width: 190px;*/
+    background-color: white;
+    border-radius: 5px;
+    overflow: hidden;
+    /*height: 80%;*/
+}
+.tile_title_Label{
+    text-align: left;
+    height:15px;
+    margin-top: 10px;
+    margin-left: 5px;
+    font-size: 20px;
+    width:150px;
+}
+.sapUiHLayoutChildWrapper{
+    white-space: normal;
+    display: inline-block;
+    vertical-align: bottom;
+}

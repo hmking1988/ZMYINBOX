@@ -1,0 +1,198 @@
+<core:View xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:l="sap.ui.layout"
+	xmlns:c="sap.ui.commons"
+	xmlns:lay="sap.ui.commons.layout"
+	xmlns:u="sap.ui.unified"
+	xmlns="sap.m" 
+	controllerName="accenture.com.ui.zmyinbox.view.Overview" 
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<!--<mvc:JSView viewName="com.zjenergy.bpm.inbox.view.VerticalNavigation"/>-->
+    <Page
+		showHeader="false"
+		enableScrolling="false" >
+		<!--<mvc:JSView viewName="com.zjenergy.bpm.inbox.view.VerticalNavigation"/>-->
+    	<u:Shell
+          id="myShell"
+          icon="./img/logo-accenture.png">
+            <u:headItems>
+                <!--<u:ShellHeadItem-->
+                <!--  tooltip="Home"-->
+                <!--  icon="sap-icon://action-settings"-->
+                <!--  visible="true"-->
+                <!--  press="handlePressSetting" />-->
+              </u:headItems>
+            <u:headEndItems>
+        
+                <!--<u:ShellHeadItem-->
+                <!--  icon="../img/touXiang.bmp"-->
+                <!--  tooltip="Logoff"-->
+                <!--  text="aaa"-->
+                <!--  visible="true"  -->
+                <!--  press="handleLogoffPress" />-->
+              </u:headEndItems>
+            <u:user>
+                <u:ShellHeadUserItem
+                      id="openMenu"
+                      image="sap-icon://business-card"
+                      username="{ 
+								parts: ['UserModel>/fullName','UserModel>/id'], 
+								formatter: 'accenture.com.ui.zmyinbox.util.Formatter.UserInfo' 
+							}"
+                      showPopupIndicator="true"
+                      press="handleUserItemPressed" >
+                          
+                </u:ShellHeadUserItem>
+            </u:user>
+            <u:search>
+              <Label></Label>
+        <!--      <HBox width="100%" justifyContent="End">-->
+        <!--                        <items>-->
+        <!--        <Label id="shellTitle" textAlign="End" text="欢迎，" class="shell-title"></Label>-->
+        <!--        <Label class="usernameTitle" text="张三"></Label>-->
+        <!--</items>-->
+        <!--        </HBox>-->
+              </u:search>	
+            <Toolbar class="sapUiMediumMarginTop myCommisionTrack_toolbar">
+        		<Label text="我的待办概览" class="myCommisionTrack_toolbar_color">
+        		</Label>
+        	</Toolbar>
+        	<TileContainer
+        			id="container"
+        			width="77%"
+        			height="40%"
+        			class="myCommisionOverview_container"
+        			tiles="{OverViewData>/results}">
+        			<CustomTile  class="myCommisionTrack_tile_position" press="onOpenTaskListWithFilter" id="MyTaskOveiw">
+            	       <customData>
+        					<core:CustomData key="tile-TaskDefinitionName" value="{OverViewData>ProcessName}" writeToDom="true">
+        					</core:CustomData>
+        					<core:CustomData key="tile-TaskDefinitionID" value="{OverViewData>DefinitionId}" writeToDom="true">
+        					</core:CustomData>
+        				</customData>
+                	    <content>
+                	        <l:VerticalLayout>
+                	            <l:content>
+                	                <c:TextView text="{OverViewData>ProcessName}" class="sapUiSmallMarginBottom myCommionOvwrview_toolbar1" design="H2"></c:TextView>
+                	                <l:HorizontalLayout>
+                	                    <l:content>
+                	                       <Image
+                        					src="./img/finish.png"
+                        					densityAware="false"
+                        					class="myCommisionOverLook_HorizontalLayout_Img"
+                        				    >
+                        				</Image>
+                        				<lay:MatrixLayout widths="35%,65%">
+                        				    <lay:MatrixLayoutRow height="25px">
+                        				        <lay:MatrixLayoutCell colSpan="2">
+                        				        </lay:MatrixLayoutCell>
+                        				    </lay:MatrixLayoutRow>
+                        				    <lay:MatrixLayoutRow class="MatrixLayoutRow_yiBaoLiu">
+                        				        <lay:MatrixLayoutCell>
+                        				            <c:TextView text="已锁定" ></c:TextView>
+                        				        </lay:MatrixLayoutCell>
+                        				        <lay:MatrixLayoutCell>
+                        				            <c:TextView text="{OverViewData>Reserved}"></c:TextView>
+                        				        </lay:MatrixLayoutCell>
+                        				    </lay:MatrixLayoutRow>
+                        				    <lay:MatrixLayoutRow class="MatrixLayoutRow_jiuXu">
+                        				        <lay:MatrixLayoutCell>
+                        				            <c:TextView text="待处理"></c:TextView>
+                        				        </lay:MatrixLayoutCell>
+                        				        <lay:MatrixLayoutCell>
+                        				            <c:TextView text="{OverViewData>Ready}"></c:TextView>
+                        				        </lay:MatrixLayoutCell>
+                        				    </lay:MatrixLayoutRow>
+                        				    <lay:MatrixLayoutRow class="MatrixLayoutRow_jinXingZhong">
+                        				        <lay:MatrixLayoutCell>
+                        				            <c:TextView text="进行中"></c:TextView>
+                        				        </lay:MatrixLayoutCell>
+                        				        <lay:MatrixLayoutCell>
+                        				            <c:TextView text="{OverViewData>Inprocess}"></c:TextView>
+                        				        </lay:MatrixLayoutCell>
+                        				    </lay:MatrixLayoutRow>
+                        				    <lay:MatrixLayoutRow class="MatrixLayoutRow_yiWanCheng">
+                        				        <lay:MatrixLayoutCell>
+                        				            <c:TextView text="已完成"></c:TextView>
+                        				        </lay:MatrixLayoutCell>
+                        				        <lay:MatrixLayoutCell>
+                        				            <c:TextView text="{OverViewData>Complete}"></c:TextView>
+                        				        </lay:MatrixLayoutCell>
+                        				    </lay:MatrixLayoutRow>
+                        				</lay:MatrixLayout>
+                	                    </l:content>
+                	                </l:HorizontalLayout>
+                	            </l:content>
+                	        </l:VerticalLayout>
+                	    </content>
+                	</CustomTile>
+        		</TileContainer>
+            <Toolbar class="sapUiMediumMarginTop myCommisionTrack_toolbar">
+        		<Label text="我的待办追踪" class="myCommisionTrack_toolbar_color">
+        		</Label>
+        	</Toolbar>
+        	<TileContainer
+        			id="container2"
+        			width="77%"
+        			height="40%"
+        			class="myCommisionOverview_container">
+                	<CustomTile class="myCommisionTrack_tile_position" press="onPTStart" id="startProcess">
+                	    <content>
+                	        <lay:MatrixLayout>
+                	            <lay:MatrixLayoutRow>
+                	                <lay:MatrixLayoutCell colSpan="2">
+                	                    <c:TextView text="我发起的流程" class="sapUiSmallMarginBottom myCommionOvwrview_toolbar" design="H2"></c:TextView>
+                	                </lay:MatrixLayoutCell>
+                	            </lay:MatrixLayoutRow>
+                	            <lay:MatrixLayoutRow height="60px">
+                	                <lay:MatrixLayoutCell colSpan="2">
+                	                    <c:TextView text="过去30天内" class="sapUiSmallMarginBottom myCommionOvwrview_toolbar" design="H2"></c:TextView>
+                	                </lay:MatrixLayoutCell>
+                	            </lay:MatrixLayoutRow>
+                	            <lay:MatrixLayoutRow>
+                	                <lay:MatrixLayoutCell>
+                	                    <Image
+                        					src="./img/finish.png"
+                        					densityAware="false"
+                        				>
+                        				</Image>
+                	                </lay:MatrixLayoutCell>
+                	                <lay:MatrixLayoutCell>
+                	                    <Label text="{/startValue}" class="MatrixLayoutRow_track_textview"></Label>
+                	                </lay:MatrixLayoutCell>
+                	            </lay:MatrixLayoutRow>
+                	        </lay:MatrixLayout>
+                	    </content>
+                	</CustomTile>
+                	<CustomTile  class="myCommisionTrack_tile_position" press="onPTApprove" id="shenPiProcess">
+                	    <content>
+                	        <lay:MatrixLayout widths="40%,60%">
+                	            <lay:MatrixLayoutRow>
+                	                <lay:MatrixLayoutCell colSpan="2">
+                	                    <c:TextView text="我审批过的流程" class="sapUiSmallMarginBottom myCommionOvwrview_toolbar" design="H2"></c:TextView>
+                	                </lay:MatrixLayoutCell>
+                	            </lay:MatrixLayoutRow>
+                	            <lay:MatrixLayoutRow height="60px">
+                	                <lay:MatrixLayoutCell colSpan="2">
+                	                    <c:TextView text="过去30天内" class="sapUiSmallMarginBottom myCommionOvwrview_toolbar" design="H2"></c:TextView>
+                	                </lay:MatrixLayoutCell>
+                	            </lay:MatrixLayoutRow>
+                	            <lay:MatrixLayoutRow>
+                	                <lay:MatrixLayoutCell>
+                	                    <Image
+                        					src="./img/finish.png"
+                        					densityAware="false"
+                        				>
+                        				</Image>
+                	                </lay:MatrixLayoutCell>
+                	                <lay:MatrixLayoutCell >
+                	                    <Label text="{/shenPiValue}" class="MatrixLayoutRow_track_textview"></Label>
+                	                </lay:MatrixLayoutCell>
+                	            </lay:MatrixLayoutRow>
+                	        </lay:MatrixLayout>
+                	    </content>
+                	</CustomTile>
+        	</TileContainer>
+        </u:Shell>
+	</Page>
+</core:View>

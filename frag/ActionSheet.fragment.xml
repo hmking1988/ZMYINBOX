@@ -1,0 +1,12 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+  <ActionSheet
+    title=""
+    showCancelButton="true"
+    placement="Bottom">
+    <buttons>
+        <Button text="登出" icon="sap-icon://log" press="logoff" />
+    </buttons>
+  </ActionSheet>
+</core:FragmentDefinition>

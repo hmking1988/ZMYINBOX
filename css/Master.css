@@ -1,0 +1,77 @@
+.sapMNav.sapMSplitContainerMaster{
+  width: 65%;
+}
+
+.listExpand:before {
+   content: '\e1e2';
+   margin-right: 10px; 
+   font-family: 'SAP-icons';
+   font-size: 1rem;
+   cursor: pointer;
+}
+
+.listCollapse:before {
+   content: '\e066';
+   margin-right: 10px; 
+   font-family: 'SAP-icons';
+   font-size: 1rem;
+   cursor: pointer;
+}
+
+/*#Detail--idTimeline-content{
+    height:840px;
+}*/
+
+.readyItem  {
+  background-color: #D8BE16;
+  color: white;
+  padding: 5px
+}
+
+.reservedItem {
+  background-color: #A20202;
+  color: white;
+  padding: 5px
+}
+
+.in_progressItem {
+  background-color: #3F03A5;
+  color: white;
+  padding: 5px
+}
+
+.executedItem{
+   background-color: #02920B;
+  color: white;
+  padding: 5px   
+}
+
+.sapMITBCount{
+    color:white;
+}
+
+
+/* customize timeline icon*/
+.acceptLabel{
+  background-color: #02920B;
+  color: white!important;
+  padding: 5px      
+}
+
+.rejectionLabel{
+  background-color: #A20202;
+  color: white!important;
+  padding: 5px      
+}
+
+.submitLabel{
+  background-color: #3F03A5;
+  color: white!important;
+  padding: 5px      
+}
+
+.cancelLabel{
+  background-color: #C7C6C6;
+  color: white!important;
+  padding: 5px      
+}

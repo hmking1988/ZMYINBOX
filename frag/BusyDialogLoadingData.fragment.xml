@@ -1,0 +1,8 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<BusyDialog
+		title="{i18n>LoadingData.title}"
+		text="{i18n>LoadingData.text}"
+    />
+</core:FragmentDefinition>

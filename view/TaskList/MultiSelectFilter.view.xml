@@ -1,0 +1,25 @@
+<!--
+
+    Copyright (C) 2009-2014 SAP SE or an SAP affiliate company. All rights reserved
+
+-->
+<core:View xmlns:core="sap.ui.core" xmlns="sap.m"
+			controllerName="accenture.com.ui.zmyinbox.view.TaskList.MultiSelectFilter" 
+			xmlns:html="http://www.w3.org/1999/xhtml"
+			resourceBundleName="accenture.com.ui.zmyinbox.i18n.messageBundle" resourceBundleAlias="i18n">
+	<Dialog id="DIALOG" contentWidth="25rem" contentHeight="440px" title="{i18n>multi.filter.title}" horizontalScrolling="false">
+		<content>
+			<VBox>
+				
+				<List id="LIST" mode="SingleSelectMaster" select="onItemSelect" items="{/}">
+					<items>
+						<StandardListItem id="LIST_ITEM" title="{title}" />
+					</items>
+				</List>
+			</VBox>
+		</content>		
+		<endButton>
+			<Button text="{i18n>dialog.cancel}" press="onCancelPress" />
+		</endButton>
+	</Dialog>
+</core:View>

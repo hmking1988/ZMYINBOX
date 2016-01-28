@@ -1,0 +1,60 @@
+{
+  "welcomeFile": "index.html",
+  "routes": [
+    {
+      "path": "/sap/opu/odata",
+      "target": {
+        "type": "destination",
+        "name": "ECD",
+        "entryPath": "/sap/opu/odata"
+      },
+      "description": "ECD"
+    },
+    {
+      "path": "/sap/public/bc/icf/",
+      "target": {
+        "type": "destination",
+        "name": "ECD",
+        "entryPath": "/sap/public/bc/icf/"
+      },
+      "description": "ECD"
+    },
+    {
+      "path": "/sap/bc/ui2/",
+      "target": {
+        "type": "destination",
+        "name": "ECD",
+        "entryPath": "/sap/bc/ui2/"
+      },
+      "description": "ECD"
+    },
+    
+    {
+      "path": "/sap.com~tc~tm~wl~odata~web/",
+      "target": {
+        "type": "destination",
+        "name": "BPD",
+        "entryPath": "sap.com~tc~tm~wl~odata~web/"
+      },
+      "description": "BPD"
+    },
+    {
+      "path": "/resources",
+      "target": {
+        "type": "service",
+        "name": "sapui5",
+        "entryPath": "/resources"
+      },
+      "description": "SAPUI5 Resources"
+    },
+    {
+      "path": "/test-resources",
+      "target": {
+        "type": "service",
+        "name": "sapui5",
+        "entryPath": "/test-resources"
+      },
+      "description": "SAPUI5 Test Resources"
+    }
+  ]
+}

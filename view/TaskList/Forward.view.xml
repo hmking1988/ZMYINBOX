@@ -1,0 +1,46 @@
+<!--
+
+    Copyright (C) 2009-2014 SAP SE or an SAP affiliate company. All rights reserved
+
+-->
+<core:View xmlns:core="sap.ui.core" 
+            xmlns:mvc="sap.ui.core.mvc" 
+            xmlns="sap.m"
+			controllerName="accenture.com.ui.zmyinbox.view.TaskList.Forward" 
+			xmlns:html="http://www.w3.org/1999/xhtml"
+			resourceBundleName="accenture.com.ui.zmyinbox.i18n.messageBundle" resourceBundleAlias="i18n"
+			>
+
+	<Dialog id="DLG_FORWARD" title="{i18n>ForwardButtonText}" contentWidth="480px" contentHeight="440px" beforeOpen="onBeforeOpenDialog">
+		<subHeader>
+			<Bar>
+				<contentMiddle>
+					<SearchField id="SFD_FORWARD" liveChange="onLiveChange" showMagnifier="false" search="onAgentSearch"></SearchField>
+				</contentMiddle>
+			</Bar>
+		</subHeader>
+		<content>
+			<List id="LST_AGENTS" items="{/agents}" 
+				showNoData="false" noDataText="{i18n>view.Forward.noRecipients}"
+				includeItemInSelection="true">
+				<StandardListItem id="ITM_AGENT" 
+						title="{
+						    parts: [{path: 'DisplayName'}, {path: 'UniqueName'}], 
+						    formatter: 'accenture.com.ui.zmyinbox.util.Formatter.formatterAgentName'}" 
+						description="{Department}"
+						icon="{
+						    parts: [{path:'mime_type'}, {path:'__metadata/media_src'}], 
+						    formatter: 'accenture.com.ui.zmyinbox.util.Formatter.formatterForwardUserIcon'}" 
+						iconDensityAware="false"
+						type="DetailAndActive"
+						press="onSelectAgent"
+      					detailPress="handleDetailPress"
+						>
+				</StandardListItem>
+			</List>
+		</content>
+		<endButton>
+			<Button press="onCancelDialog" text="{i18n>dialog.cancel}"/>
+		</endButton>
+	</Dialog>
+</core:View>

@@ -1,0 +1,130 @@
+<core:View 
+    xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns="sap.m"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:suite="sap.suite.ui.commons"
+	controllerName="accenture.com.ui.zmyinbox.view.ProcessTrack.Detail" 
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page
+		title="{i18n>PTDetailTitle}"
+		class="sapUiFioriObjectPage"
+		showNavButton="{device>/isPhone}"
+		navButtonPress="handleNavButtonPress" >
+		<ObjectHeader 
+			title="{Onlymarkdec}:{Onlymark}"
+		 >
+			<attributes> 
+			 	<ObjectAttribute text="{Authorname}" />
+				<ObjectAttribute text="{Startdate}" />
+			</attributes> 
+		</ObjectHeader>
+		<IconTabBar 
+			expanded="{device>/isNoPhone}"
+			select="handleIconTabBarSelect"> 
+			<items> 
+					<IconTabFilter 
+						icon="sap-icon://message-information"
+						key="TaskInfo"
+						text="工作流信息">
+						<form:SimpleForm 
+								id="ProcessInfoForm" 
+								minWidth="1024" > 
+								<core:Title text="工作流信息" /> 
+								<Label text="主题"/>
+								<Text text="{Onlymarkdec}" />
+								<Label text="状态"/> 
+								<Text text="{ 
+								                path: 'oStatus/Procstatus', 
+								                formatter: 'accenture.com.ui.zmyinbox.util.Formatter.prostatusText' 
+							                    }" />
+						</form:SimpleForm>
+                		<Table
+                			headerText="未处理待办列表"
+                			items="{oStatus/BPMOPENPROCESSITEMSet/results}" >
+                			<columns>
+                				<Column
+                					minScreenWidth="Tablet"
+                					demandPopin="true"
+                					hAlign="Center" >
+                					<Text text="待办名称" />
+                				</Column>
+                				<Column
+                					minScreenWidth="Tablet"
+                					demandPopin="true"
+                					hAlign="Center" >
+                					<Text text="待办状态" />
+                				</Column>
+                				<Column
+                					minScreenWidth="Tablet"
+                					demandPopin="true"
+                					hAlign="Center" >
+                					<Text text="处理人" />
+                				</Column>
+                			</columns>
+                			<ColumnListItem >
+                				<cells>
+                					<Text
+                						text="{Tasksubject}"/>
+                					<Text
+                						text="{ 
+								                path: 'Status', 
+								                formatter: 'accenture.com.ui.zmyinbox.util.Formatter.statusText' 
+							                    }"/>
+                					<Text
+                						text="{Owner}"/>
+                				</cells>
+                			</ColumnListItem>
+                		</Table>
+					</IconTabFilter>
+					<IconTabSeparator icon="sap-icon://open-command-field" />
+					<IconTabFilter 
+						icon="sap-icon://activities"
+						key="BPMHIS"
+						text="审批流信息">
+                		<suite:Timeline 
+                			id="idTimeline"
+                			enableScroll="false"
+                			showHeaderBar="false"
+                			sort="false"
+                			growing="false"
+                		 	width="90%"
+                			content="{oTaskHis}">
+                				<suite:content>
+                					<suite:TimelineItem 
+                						id="idTimelineItem" 
+                						dateTime="{Executiontime}"
+                						userName="{Agentname}"
+                						userNameClickable = "true"
+                						userNameClicked ="attachUserNameClicked"
+                						title="{
+                						        path:'Approvestate',
+                						        formatter:'accenture.com.ui.zmyinbox.util.Formatter.approveText'
+                						}"
+                						icon="{
+                						        path:'Approvestate',
+                						        formatter:'accenture.com.ui.zmyinbox.util.Formatter.approveIcon'
+                						}"
+                						text="{Approvememo}">
+                					</suite:TimelineItem>
+                				</suite:content>
+                		</suite:Timeline>
+                	</IconTabFilter>
+
+			</items> 
+		</IconTabBar>
+
+<!--		<footer> 
+			<Bar>
+				<contentRight>
+					<Button
+					    id="claimButton"
+						text="{i18n>ClaimButtonText}"
+						icon="sap-icon://cause"
+						enabled="{TaskSupports/Claim}"
+						press="handleClaim" />
+				</contentRight>
+			</Bar> 
+		</footer>-->
+	</Page>
+</core:View>
