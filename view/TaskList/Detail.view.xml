@@ -155,6 +155,15 @@
 						                    	}"
 						press="onForwardPopUp" />
 					<Button
+					    id="cancelButton"
+						text="{i18n>cancelButtonText}"
+						icon="sap-icon://delete"
+						visible="{ 
+								                path: 'CreatedBy', 
+								                formatter: 'accenture.com.ui.zmyinbox.util.Formatter.cancelButtonVisible' 
+						                    	}"
+						press="handleCancel" />
+					<Button
 					    id="openButton"
 						text="{i18n>OpenButtonText}"
 						icon="sap-icon://open-folder"

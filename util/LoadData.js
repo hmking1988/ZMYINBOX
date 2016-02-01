@@ -96,16 +96,19 @@ accenture.com.ui.zmyinbox.util.LoadData = {
     	oODataJSONModel = new sap.ui.model.json.JSONModel();
         oODataJSONModel.setDefaultBindingMode("TwoWay");
         var JSONDATA=[];
-        var sPathReady="TaskCollection?$skip=0&$top=500&$orderby=CreatedOn%20desc&$filter=((Status%20eq%20%27READY%27))&$inlinecount=allpages";
+/*        var sPathReady="TaskCollection?$skip=0&$top=500&$orderby=CreatedOn%20desc&$filter=((Status%20eq%20%27READY%27))&$inlinecount=allpages";
         var sPathReserved="TaskCollection?$skip=0&$top=500&$orderby=CreatedOn%20desc&$filter=((Status%20eq%20%27RESERVED%27))&$inlinecount=allpages";		
-    	var sPathInProcess="TaskCollection?$skip=0&$top=500&$orderby=CreatedOn%20desc&$filter=((Status%20eq%20%27IN_PROGRESS%27))&$inlinecount=allpages";
+    	var sPathInProcess="TaskCollection?$skip=0&$top=500&$orderby=CreatedOn%20desc&$filter=((Status%20eq%20%27IN_PROGRESS%27))&$inlinecount=allpages";*/
     	var sPathComplete="TaskCollection?$skip=0&$top=500&$orderby=CreatedOn%20desc&$filter=((Status%20eq%20%27COMPLETED%27))&$inlinecount=allpages";
+    	var sPathNotComplete="TaskCollection/?$expand=CustomAttributeData&$skip=0&$top=10010&$orderby=CreatedOn%20desc&$filter=((Status%20eq%20%27READY%27%20or%20Status%20eq%20%27RESERVED%27%20or%20Status%20eq%20%27IN_PROGRESS%27))&$inlinecount=allpages";
     	oModel.setUseBatch(true);
-        var ReadyTasks=oModel.createBatchOperation(sPathReady, 'GET');
+/*        var ReadyTasks=oModel.createBatchOperation(sPathReady, 'GET');
         var ReservedTasks=oModel.createBatchOperation(sPathReserved, 'GET');
-        var InProcessTasks=oModel.createBatchOperation(sPathInProcess, 'GET');
+        var InProcessTasks=oModel.createBatchOperation(sPathInProcess, 'GET');*/
         var CompleteTasks=oModel.createBatchOperation(sPathComplete, 'GET');
-    	oModel.addBatchReadOperations([ReadyTasks,ReservedTasks,InProcessTasks,CompleteTasks]);
+        var NotCompleteTasks=oModel.createBatchOperation(sPathNotComplete, 'GET');
+    	//oModel.addBatchReadOperations([ReadyTasks,ReservedTasks,InProcessTasks,CompleteTasks]);
+    	oModel.addBatchReadOperations([NotCompleteTasks,CompleteTasks]);
     	oModel.submitBatch(
     	    function(data, response){
     		    for(var i=0;i<data.__batchResponses.length;i++){
@@ -126,7 +129,6 @@ accenture.com.ui.zmyinbox.util.LoadData = {
     		            }*/
     		        }
     		    }
-    		    //console.log(JSONDATA);
     		    oODataJSONModel.setData(JSONDATA, true);
                 //console.log(oODataJSONModel);
                 oODataJSONModel.setSizeLimit(99999);

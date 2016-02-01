@@ -29,6 +29,7 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.TaskList.App", {
 		
 		// set data context on the page
 		if (context) {
+		    console.log(context);
 		    //loading task data async
 		    accenture.com.ui.zmyinbox.util.LoadData.loadTDData(context,true)
 		    .done(function (oContext){

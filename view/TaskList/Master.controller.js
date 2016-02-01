@@ -505,13 +505,40 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.TaskList.Master", {
 		// compute sorters 
         this._GLOBLE_GROUP_SORTERS=[];
 		var item = evt.getParameter("selectedItem");
-		var key = (item) ? item.getKey() : null; 
+		var key = (item) ? item.getKey() : null;
+		accenture.com.ui.zmyinbox.util.Grouper.bundle = this.getView().getModel("i18n").getResourceBundle(); 
+		var grouper = accenture.com.ui.zmyinbox.util.Grouper[key];
 		//console.log(item.getKey());
 		if ("Status" == key) { 
-				accenture.com.ui.zmyinbox.util.Grouper.bundle = this.getView().getModel("i18n").getResourceBundle(); 
-				var grouper = accenture.com.ui.zmyinbox.util.Grouper[key]; 
-				//console.log(new sap.ui.model.Sorter(key, true, grouper));
-				this._GLOBLE_GROUP_SORTERS.push(new sap.ui.model.Sorter(key, true, grouper)); 
+			//console.log(new sap.ui.model.Sorter(key, true, grouper));
+			this._GLOBLE_GROUP_SORTERS.push(new sap.ui.model.Sorter(key, true, grouper)); 
+		}
+		if("Process" == key){
+		    var oSorter = new sap.ui.model.Sorter("", null,grouper);
+            oSorter.fnCompare = function(a, b) {
+                var agroup="";
+                if(a.CustomAttributeData.results){
+                    for(var i=0;i<a.CustomAttributeData.results.length;i++){
+                        if(a.CustomAttributeData.results[i].Name=="Process"){
+                            agroup=a.CustomAttributeData.results[i].Value;
+                        }
+                    }                    
+                }
+
+                var bgroup="";
+                if(b.CustomAttributeData.results){
+                    for(var i=0;i<b.CustomAttributeData.results.length;i++){
+                        if(b.CustomAttributeData.results[i].Name=="Process"){
+                            agroup=b.CustomAttributeData.results[i].Value;
+                        }
+                    } 
+                }
+
+                if (agroup < bgroup) return -1;
+                if (agroup > bgroup) return  1;
+                return 0;
+            }
+            this._GLOBLE_GROUP_SORTERS.push(oSorter);
 		}
 		// update binding 
 		var list = this.getView().byId("list"); 
@@ -527,7 +554,6 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.TaskList.Master", {
 		this.getList().getBinding("items").aApplicationFilters=[];
 		this.iTotalFilteredItems=this.getList().getBinding("items").filter(a).iLastEndIndex;*/
 		var filters=this.getFilter(f);
-		console.log(filters);
 		var list = this.getView().byId("list"); 
 		var oBinding = list.getBinding("items");
 		this._IS_FILTER_CHANGED=true;
@@ -927,12 +953,9 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.TaskList.Master", {
 			});
 
 			accenture.com.ui.zmyinbox.util.MultiSelect
-			.openFilterDialog(
-					aFilterItems,
-					jQuery
-					.proxy(
-							this.multiSelectFilterDialogOK,
-							this), null);
+			.openFilterDialog(aFilterItems,
+			                    jQuery.proxy(this.multiSelectFilterDialogOK,this), 
+			                    jQuery.proxy(this.multiSelctFilterDialogCancel,this));
 		} else {
 			// If we have only one TaskDefinitionID, then
 			// selection dialog is not needed.
@@ -1016,6 +1039,7 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.TaskList.Master", {
             					press: function(){
             					    $.proxy(t.handleMassiveProcess(),t);
             					    dialog.close();
+            					    
             					}
             				}),
             				endButton: new sap.m.Button({
@@ -1060,6 +1084,10 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.TaskList.Master", {
 		}
 		
 		
+	},
+	multiSelctFilterDialogCancel: function(){
+	    var oButton=this.byId("multiSelect");
+        oButton.setIcon("sap-icon://multi-select");
 	},
 	dismissMultiSelect: function() {
 		//this.setMultiSelectButtonActive(false);

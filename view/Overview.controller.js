@@ -20,6 +20,12 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.Overview", {
         	    var year=today.getFullYear();
         	    var date=today.getDate();
         	    var startDate="";
+        	    if(date<10){
+        	        date="0"+date;
+        	    }
+        	    if(month<10){
+        	        month="0"+month;
+        	    }
         	    if(month==0){
         	        startDate=(year-1)+"12"+date;
         	    }else{
@@ -176,6 +182,12 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.Overview", {
 	    var year=today.getFullYear();
 	    var date=today.getDate();
 	    var startDate="";
+	    if(date<10){
+	        date="0"+date;
+	    }
+	    if(month<10){
+	        month="0"+month;
+	    }
 	    if(month==0){
 	        startDate=(year-1)+"12"+date;
 	    }else{
@@ -214,6 +226,12 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.Overview", {
 	    var year=today.getFullYear();
 	    var date=today.getDate();
 	    var startDate="";
+	    if(date<10){
+	        date="0"+date;
+	    }
+	    if(month<10){
+	        month="0"+month;
+	    }
 	    if(month==0){
 	        startDate=(year-1)+"12"+date;
 	    }else{

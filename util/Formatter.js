@@ -183,6 +183,22 @@ accenture.com.ui.zmyinbox.util.Formatter = {
 
 		  return bVisible;
 		},
+		cancelButtonVisible: function(CreatedBy){
+		  var bVisible=false;
+		  var oUserInfo=sap.ui.getCore().getModel("UserModel").getData();
+		  if(oUserInfo.id.toLowerCase()==CreatedBy){
+    		  bVisible=true;
+		  }
+		  //autorization control for ECC 200 test
+		  var user=oUserInfo.id.toLowerCase();
+		  if(user=="ac-linlw"||user=="ac-map"||user=="ac-liuc"||user=="ac-lisj"){
+		      console.log(user);
+		  }else{
+		      bVisible=false;
+		  }
+
+		  return bVisible;
+		},
 		NameCardUserIcon : function (sMimeType, sIconUrl) {
 			if (sMimeType) {
 				return sIconUrl;

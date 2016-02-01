@@ -135,7 +135,59 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.TaskList.Detail", {
                         }
                         );
 	},
-
+	handleCancel : function (evt) {
+        var t=this;
+	    var oItem = this.byId("TaskInfoForm");
+	    var bindingContext=oItem.getBindingContext();
+        var path = bindingContext.getPath();
+        var oItemData = bindingContext.getModel().getProperty(path);
+        var TaskID=oItemData.InstanceID;
+		var dialog = new sap.m.Dialog({
+				title: '{i18n>viewCanceltitle}',
+				type: 'Message',
+				content: [
+				    new sap.m.Text({ text: '{i18n>viewCancelQuestion}'+"?" }),
+					new sap.m.TextArea('confirmDialogTextarea', {
+						width: '100%',
+						placeholder: '{i18n>viewCancelComment}'
+					})
+				],
+				beginButton: new sap.m.Button({
+					text: '{i18n>viewCancelSubmit}',
+					press: function () {
+						var sText = sap.ui.getCore().byId('confirmDialogTextarea').getValue();
+						dialog.close();
+						t.submitCancel(TaskID,sText);
+					}
+				}),
+				endButton: new sap.m.Button({
+					text: '{i18n>DecisionOptionCancel}',
+					press: function () {
+						dialog.close();
+					}
+				}),
+				afterClose: function() {
+					dialog.destroy();
+				}
+			});
+			dialog.open();
+	},
+	
+	submitCancel: function(TaskID,sText){
+	    var oDataModel=sap.ui.getCore().getModel("customAPI");
+        oDataModel.create("BPMPROCCANCELSet",{Taskid:TaskID,Comment:sText},
+                        {
+                            success: function(data,response){
+                                sap.m.MessageToast.show("工作流取消成功");
+                            },
+                            error: function(){
+                                sap.m.MessageToast.show("工作流取消失败");
+                            }
+                        }
+                        );	    
+	},
+	
+	
 	handleOpen: function(evt){
         var UIELink=evt.getSource().getBindingContext().getProperty("UIELink");
         var oConext=evt.getSource().getBindingContext();
