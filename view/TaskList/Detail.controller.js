@@ -198,19 +198,19 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.TaskList.Detail", {
         TaskList.rerender();
         var sLink=accenture.com.ui.zmyinbox.util.HelperFunction.URLEnhance(UIELink,oTaskEntity.InstanceID);
         //var sLink=oTaskEntity.UIELink;
-        //window.open(sLink);
+        window.open(sLink);
         
         
-    	var oOverlayContainer = new sap.ui.ux3.OverlayContainer({
-    		openButtonVisible: false
-    	});
-                  
-        var oHTML = new sap.ui.core.HTML({preferDOM:true,content:"<iframe src='"+sLink+"'  style='height: 100%; width: 100%;' ></iframe>"});        
-        oOverlayContainer.addContent(oHTML);
-        oOverlayContainer.attachClose($.proxy(this.autoRelease,this));
-		if(!oOverlayContainer.isOpen()){
-			oOverlayContainer.open();
-		}
+/*	var oOverlayContainer = new sap.ui.ux3.OverlayContainer({
+		openButtonVisible: false
+	});
+              
+    var oHTML = new sap.ui.core.HTML({preferDOM:true,content:"<iframe src='"+sLink+"'  style='height: 100%; width: 100%;' ></iframe>"});        
+    oOverlayContainer.addContent(oHTML);
+    oOverlayContainer.attachClose($.proxy(this.autoRelease,this));
+	if(!oOverlayContainer.isOpen()){
+		oOverlayContainer.open();
+	}*/
 	},
 	autoRelease: function(evt){
 	    var t=this;

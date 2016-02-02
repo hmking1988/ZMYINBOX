@@ -212,7 +212,7 @@ accenture.com.ui.zmyinbox.util.Formatter = {
             if(Agentid.indexOf("USER.PRIVATE_DATASOURCE.un:")>=0){
                 name=Agentid.substring(27);
             //in case the username if from LDAP
-            }else if(Agentid.indexOf("USER.CORP_LDAP.")){
+            }else if(Agentid.indexOf("USER.CORP_LDAP.")>=0){
                 name=Agentid.substring(15);
             }else{
                 name=Agentid;
