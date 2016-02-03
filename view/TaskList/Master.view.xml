@@ -90,9 +90,9 @@
 								<core:Item 
 										key="Status" 
 										text="{i18n>MasterGroupStatus}"/>
-								<core:Item 
+<!--								<core:Item 
 										key="Process" 
-										text="{i18n>MasterGroupProcess}"/>
+										text="{i18n>MasterGroupProcess}"/>-->
 							</Select>
     					<Button
     					    id="filter"

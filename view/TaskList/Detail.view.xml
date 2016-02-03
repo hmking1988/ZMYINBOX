@@ -154,7 +154,7 @@
 								                formatter: 'accenture.com.ui.zmyinbox.util.Formatter.forwardButtonVisible' 
 						                    	}"
 						press="onForwardPopUp" />
-					<Button
+<!--					<Button
 					    id="cancelButton"
 						text="{i18n>cancelButtonText}"
 						icon="sap-icon://delete"
@@ -162,7 +162,7 @@
 								                path: 'CreatedBy', 
 								                formatter: 'accenture.com.ui.zmyinbox.util.Formatter.cancelButtonVisible' 
 						                    	}"
-						press="handleCancel" />
+						press="handleCancel" />-->
 					<Button
 					    id="openButton"
 						text="{i18n>OpenButtonText}"

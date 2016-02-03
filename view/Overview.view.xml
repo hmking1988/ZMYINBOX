@@ -14,7 +14,8 @@
 		<!--<mvc:JSView viewName="com.zjenergy.bpm.inbox.view.VerticalNavigation"/>-->
     	<u:Shell
           id="myShell"
-          icon="./img/logo-accenture.png">
+          >
+<!--          icon="./img/logo-accenture.png">-->
             <u:headItems>
                 <!--<u:ShellHeadItem-->
                 <!--  tooltip="Home"-->

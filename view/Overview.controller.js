@@ -117,6 +117,10 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.Overview", {
                                 window.location.replace("/sap/public/bc/icf/logoff");
             })
     },
+    
+    downloadhelp: function(){
+        window.open("http://erp.zhenergy.com.cn/demo.sap.com~test123/helpdoc/PH3_26_user_guide_zmyinbox.pdf");
+    },
     handleUserItemPressed : function(oEvent) {
 		var oButton = oEvent.getSource();
 
