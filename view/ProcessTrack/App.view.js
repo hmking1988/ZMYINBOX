@@ -34,7 +34,7 @@ sap.ui.jsview("accenture.com.ui.zmyinbox.view.ProcessTrack.App", {
 		return this.app;
 	},
 	onBeforeShow: function(){
-	    console.log("PTapp showed!");
+	    //console.log("PTapp showed!");
 	    var oView=this.app.getPage("PTMaster",true);
 	    var sTaskJsonModel;
 	    var RB1=oView.byId("RB1");

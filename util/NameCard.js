@@ -3,7 +3,7 @@ jQuery.sap.require("accenture.com.ui.zmyinbox.util.LoadData");
 jQuery.sap.require("accenture.com.ui.zmyinbox.util.Formatter");
 accenture.com.ui.zmyinbox.util.NameCard = {
     showNameCard: function(t,UniqueName) {
-        console.log(UniqueName);
+        //console.log(UniqueName);
         accenture.com.ui.zmyinbox.util.LoadData.loadUserInfoData(UniqueName,true)
         .done(function(data){
     		var oPopover = new sap.m.Popover({

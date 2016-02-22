@@ -99,8 +99,26 @@ accenture.com.ui.zmyinbox.util.LoadData = {
 /*        var sPathReady="TaskCollection?$skip=0&$top=500&$orderby=CreatedOn%20desc&$filter=((Status%20eq%20%27READY%27))&$inlinecount=allpages";
         var sPathReserved="TaskCollection?$skip=0&$top=500&$orderby=CreatedOn%20desc&$filter=((Status%20eq%20%27RESERVED%27))&$inlinecount=allpages";		
     	var sPathInProcess="TaskCollection?$skip=0&$top=500&$orderby=CreatedOn%20desc&$filter=((Status%20eq%20%27IN_PROGRESS%27))&$inlinecount=allpages";*/
-    	var sPathComplete="TaskCollection?$skip=0&$top=500&$orderby=CreatedOn%20desc&$filter=((Status%20eq%20%27COMPLETED%27))&$inlinecount=allpages";
-    	var sPathNotComplete="TaskCollection/?$expand=CustomAttributeData&$skip=0&$top=10010&$orderby=CreatedOn%20desc&$filter=((Status%20eq%20%27READY%27%20or%20Status%20eq%20%27RESERVED%27%20or%20Status%20eq%20%27IN_PROGRESS%27))&$inlinecount=allpages";
+//    	var sPathComplete="TaskCollection?$skip=0&$top=50&$orderby=CreatedOn%20desc&$filter=((Status%20eq%20%27COMPLETED%27))&$inlinecount=allpages";
+        //retrieve complete tasks within 30days or less than 100
+	    var today=new Date();
+	    var month=today.getMonth();
+	    var year=today.getFullYear();
+	    var date=today.getDate();
+	    var startDate="";
+	    if(date<10){
+	        date="0"+date;
+	    }
+	    if(month<10){
+	        month="0"+month;
+	    }
+	    if(month==0){
+	        startDate=(year-1)+"12"+date;
+	    }else{
+	        startDate=year+"-"+month+"-"+date;
+	    }
+        var sPathComplete="TaskCollection?$skip=0&$top=100&$orderby=CreatedOn%20desc&$filter=((Status%20eq%20%27COMPLETED%27)%20and%20CreatedOn%20ge%20datetime%27"+startDate+"T00:00:00%27)&$inlinecount=allpages"
+    	var sPathNotComplete="TaskCollection/?$skip=0&$top=10010&$orderby=CreatedOn%20desc&$filter=((Status%20eq%20%27READY%27%20or%20Status%20eq%20%27RESERVED%27%20or%20Status%20eq%20%27IN_PROGRESS%27))&$inlinecount=allpages";
     	oModel.setUseBatch(true);
 /*        var ReadyTasks=oModel.createBatchOperation(sPathReady, 'GET');
         var ReservedTasks=oModel.createBatchOperation(sPathReserved, 'GET');
@@ -479,5 +497,45 @@ accenture.com.ui.zmyinbox.util.LoadData = {
         }else{
             return DOData;
         }
+    },
+    
+    //helo function to extract Task overview Data
+    loadTaskOverviewData: function(){
+        var oODataJSONModel=sap.ui.getCore().getModel("TaskListJson");
+        var TaskList=oODataJSONModel.oData;
+        var TaskOverview={};
+        var TaskOverviewList=[];
+        for(var i in TaskList){
+            if(TaskOverview[TaskList[i].TaskDefinitionID]){
+                TaskOverview[TaskList[i].TaskDefinitionID][TaskList[i].Status]++;
+                if(TaskOverview[TaskList[i].TaskDefinitionID]["CreatedOn"]<TaskList[i]["CreatedOn"]){
+                    TaskOverview[TaskList[i].TaskDefinitionID]["CreatedOn"]=TaskList[i]["CreatedOn"];
+                    TaskOverview[TaskList[i].TaskDefinitionID].TaskDefinitionName=TaskList[i].TaskDefinitionName;
+                }
+            }else{
+                TaskOverview[TaskList[i].TaskDefinitionID]={};
+                TaskOverview[TaskList[i].TaskDefinitionID].RESERVED=0;
+                TaskOverview[TaskList[i].TaskDefinitionID].READY=0;
+                TaskOverview[TaskList[i].TaskDefinitionID].IN_PROGRASS=0;
+                TaskOverview[TaskList[i].TaskDefinitionID].COMPLETED=0;
+                TaskOverview[TaskList[i].TaskDefinitionID][TaskList[i].Status]++;
+                TaskOverview[TaskList[i].TaskDefinitionID]["CreatedOn"]=TaskList[i]["CreatedOn"];
+                TaskOverview[TaskList[i].TaskDefinitionID].TaskDefinitionName=TaskList[i].TaskDefinitionName;
+            }
+        }
+        for(var obj in TaskOverview){
+            TaskOverviewList.push({
+                DefinitionId:    obj,
+                ProcessName:     TaskOverview[obj].TaskDefinitionName,
+                Ready:           TaskOverview[obj].READY,
+                Reserved:        TaskOverview[obj].RESERVED,
+                Complete:        TaskOverview[obj].COMPLETED,
+                Inprocess:       TaskOverview[obj].IN_PROGRASS,
+            })
+        }
+        var oJsonModelTaskOverview = new sap.ui.model.json.JSONModel();
+        oJsonModelTaskOverview.setData({results:TaskOverviewList});
+        sap.ui.getCore().setModel(oJsonModelTaskOverview,"OverViewData");
+        
     },
 };

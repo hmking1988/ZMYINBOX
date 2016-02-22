@@ -17,7 +17,7 @@ accenture.com.ui.zmyinbox.util.Grouper = {
                 for(var i=0;i<CustomAttributeData.results.length;i++){
                     if(CustomAttributeData.results[i].Name=="Process"){
                         text=CustomAttributeData.results[i].Value;
-                        console.log(text);
+                        //console.log(text);
                     }
                 }
 		    }

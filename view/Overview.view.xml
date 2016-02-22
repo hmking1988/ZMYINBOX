@@ -24,13 +24,18 @@
                 <!--  press="handlePressSetting" />-->
               </u:headItems>
             <u:headEndItems>
-        
-                <!--<u:ShellHeadItem-->
-                <!--  icon="../img/touXiang.bmp"-->
-                <!--  tooltip="Logoff"-->
-                <!--  text="aaa"-->
-                <!--  visible="true"  -->
-                <!--  press="handleLogoffPress" />-->
+                <u:ShellHeadItem
+                icon="sap-icon://refresh"
+                tooltip="刷新"
+                text="刷新"
+                visible="true" 
+                press="onRefresh" />
+                <u:ShellHeadItem
+                icon="sap-icon://sys-help-2"
+                tooltip="帮助"
+                text="帮助文档"
+                visible="true" 
+                press="downloadhelp" />
               </u:headEndItems>
             <u:user>
                 <u:ShellHeadUserItem
@@ -39,9 +44,9 @@
                       username="{ 
 								parts: ['UserModel>/fullName','UserModel>/id'], 
 								formatter: 'accenture.com.ui.zmyinbox.util.Formatter.UserInfo' 
-							}"
-                      showPopupIndicator="true"
-                      press="handleUserItemPressed" >
+							}">
+<!--                      showPopupIndicator="true"
+                      press="handleUserItemPressed" >-->
                           
                 </u:ShellHeadUserItem>
             </u:user>
@@ -58,6 +63,12 @@
         		<Label text="我的待办概览" class="myCommisionTrack_toolbar_color">
         		</Label>
         	</Toolbar>
+        			<Label text="您没有未完成的待办事项。" class="Tile_Info"
+        			    visible="{
+                						        path:'OverViewData>/results',
+                						        formatter:'accenture.com.ui.zmyinbox.util.Formatter.Tile_Info'
+                						}"  
+        			 ></Label>
         	<TileContainer
         			id="container"
         			width="77%"
@@ -127,7 +138,7 @@
                 	        </l:VerticalLayout>
                 	    </content>
                 	</CustomTile>
-        		</TileContainer>
+        	</TileContainer>
             <Toolbar class="sapUiMediumMarginTop myCommisionTrack_toolbar">
         		<Label text="我的待办追踪" class="myCommisionTrack_toolbar_color">
         		</Label>

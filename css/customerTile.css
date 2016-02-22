@@ -18,3 +18,9 @@
     display: inline-block;
     vertical-align: bottom;
 }
+
+.Tile_Info{
+    width:100%;
+    text-align: center!important;
+    color:red!important;
+}

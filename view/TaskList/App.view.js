@@ -27,7 +27,7 @@ sap.ui.jsview("accenture.com.ui.zmyinbox.view.TaskList.App", {
 		return this.app;
 	},
 	onBeforeShow: function(){
-	    console.log("TLapp showed!");
+	    //console.log("TLapp showed!");
 	    var oView=this.app.getPage("Master",true);
 	    var oList=oView.byId("list");
 	    var sTaskJsonModel;

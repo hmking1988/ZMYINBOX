@@ -6,7 +6,7 @@
     showCancelButton="true"
     placement="Bottom">
     <buttons>
-        <Button text="登出" icon="sap-icon://log" press="logoff" />
+  <!--      <Button text="登出" icon="sap-icon://log" press="logoff" />-->
         <Button text="帮助文档" icon="sap-icon://message-information" press="downloadhelp" />
     </buttons>
   </ActionSheet>

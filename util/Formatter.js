@@ -192,7 +192,8 @@ accenture.com.ui.zmyinbox.util.Formatter = {
 		  //autorization control for ECC 200 test
 		  var user=oUserInfo.id.toLowerCase();
 		  if(user=="ac-linlw"||user=="ac-map"||user=="ac-liuc"||user=="ac-lisj"){
-		      console.log(user);
+		      //console.log(user);
+		      true;
 		  }else{
 		      bVisible=false;
 		  }
@@ -219,4 +220,13 @@ accenture.com.ui.zmyinbox.util.Formatter = {
             }
             return name;
         },
+        Tile_Info: function(results){
+            if(results){
+                if(results.length>0){
+                    return false;
+                }
+            }
+
+            return true;
+        }
 };

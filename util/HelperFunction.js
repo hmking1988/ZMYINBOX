@@ -29,7 +29,7 @@ accenture.com.ui.zmyinbox.util.HelperFunction = {
 	   }else if(pathName.indexOf("erpt")>=0){
 	       BPMHost = "http://znbb-bpmt-01.zhenergy.com.cn:50000"; 
 	   }else if(pathName.indexOf("erpp")>=0){
-	       BPMHost ="http://znbb-bpmprd.zhenergy.com.cn:50000/";
+	       BPMHost ="http://znbb-bpmprd.zhenergy.com.cn:50000";
 	   }else{
 	       BPMHost = "http://znbb-bpmd-01.zhenergy.com.cn:50000"; 
 	   }
@@ -47,17 +47,17 @@ accenture.com.ui.zmyinbox.util.HelperFunction = {
         var CSSURL="&sap-cssurl="+BPMHost+"/com.sap.ui.lightspeed/themes/sap_corbu/ls/";
         switch(BrowserType){
             case "IE":
-                CSSURL+="ls_ie6.css#";
+                CSSURL+="ls_ie6.css";
             break;
             case "FF":
-                CSSURL+="ls_nn7.css#";
+                CSSURL+="ls_nn7.css";
             break;
             case "Chrome":
-                CSSURL+="ls_sf3.css#";
+                CSSURL+="ls_sf3.css";
             break;
             default:
-                CSSURL+="ls_sf3.css#";
-            break;            
+                CSSURL+="ls_nn7.css";
+            break;
         }
         //check if the execution ui is using webdynpro tech
         if(ExecutionURL.indexOf("tc~bpem~wdui~taskinstance")>=0){

@@ -6,7 +6,7 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.ProcessTrack.Detail", {
 	    var oTiemline=this.byId("idTimeline");
 	    oTiemline.addEventDelegate({
 	        onAfterRendering:function(){
-	            console.log("time line onafterrendering");
+	            //console.log("time line onafterrendering");
 	            var ul = $("#PTDetail--idTimeline-content");
                 ul.find('li').each(function() {
                     var item = $(this);
@@ -48,7 +48,7 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.ProcessTrack.Detail", {
                 })
 	        },
 	        onBeforeRendering:function(){
-	            console.log("time line onbeforerendering");
+	            //console.log("time line onbeforerendering");
 	        }
 	        
 	    },oTiemline);
