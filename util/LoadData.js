@@ -1,4 +1,6 @@
+jQuery.sap.require("sap.ui.core.format.DateFormat");
 jQuery.sap.declare("accenture.com.ui.zmyinbox.util.LoadData");
+
 accenture.com.ui.zmyinbox.util.LoadData = {
     /*
         This util funciton group is designed to contain gateway service here 
@@ -102,21 +104,24 @@ accenture.com.ui.zmyinbox.util.LoadData = {
 //    	var sPathComplete="TaskCollection?$skip=0&$top=50&$orderby=CreatedOn%20desc&$filter=((Status%20eq%20%27COMPLETED%27))&$inlinecount=allpages";
         //retrieve complete tasks within 30days or less than 100
 	    var today=new Date();
-	    var month=today.getMonth();
-	    var year=today.getFullYear();
-	    var date=today.getDate();
-	    var startDate="";
-	    if(date<10){
+        var thirtyDaysAhead = new Date();
+        thirtyDaysAhead.setDate(today.getDate() - 30);
+        thirtyDaysAhead.setHours(0,0,0,0);
+	    var oDateFormat = sap.ui.core.format.DateFormat.getDateTimeInstance({pattern: "yyyy-MM-dd"});
+	    var startDate=oDateFormat.format(thirtyDaysAhead);
+/*	    if(date<10){
+	        date=date-1;
 	        date="0"+date;
 	    }
 	    if(month<10){
+	        month+=month;
 	        month="0"+month;
 	    }
 	    if(month==0){
 	        startDate=(year-1)+"12"+date;
 	    }else{
-	        startDate=year+"-"+month+"-"+date;
-	    }
+	            startDate=year+"-"+month+"-"+date;
+	    }*/
         var sPathComplete="TaskCollection?$skip=0&$top=100&$orderby=CreatedOn%20desc&$filter=((Status%20eq%20%27COMPLETED%27)%20and%20CreatedOn%20ge%20datetime%27"+startDate+"T00:00:00%27)&$inlinecount=allpages"
     	var sPathNotComplete="TaskCollection/?$skip=0&$top=10010&$orderby=CreatedOn%20desc&$filter=((Status%20eq%20%27READY%27%20or%20Status%20eq%20%27RESERVED%27%20or%20Status%20eq%20%27IN_PROGRESS%27))&$inlinecount=allpages";
     	oModel.setUseBatch(true);
@@ -516,7 +521,7 @@ accenture.com.ui.zmyinbox.util.LoadData = {
                 TaskOverview[TaskList[i].TaskDefinitionID]={};
                 TaskOverview[TaskList[i].TaskDefinitionID].RESERVED=0;
                 TaskOverview[TaskList[i].TaskDefinitionID].READY=0;
-                TaskOverview[TaskList[i].TaskDefinitionID].IN_PROGRASS=0;
+                TaskOverview[TaskList[i].TaskDefinitionID].IN_PROGRESS=0;
                 TaskOverview[TaskList[i].TaskDefinitionID].COMPLETED=0;
                 TaskOverview[TaskList[i].TaskDefinitionID][TaskList[i].Status]++;
                 TaskOverview[TaskList[i].TaskDefinitionID]["CreatedOn"]=TaskList[i]["CreatedOn"];
@@ -530,7 +535,7 @@ accenture.com.ui.zmyinbox.util.LoadData = {
                 Ready:           TaskOverview[obj].READY,
                 Reserved:        TaskOverview[obj].RESERVED,
                 Complete:        TaskOverview[obj].COMPLETED,
-                Inprocess:       TaskOverview[obj].IN_PROGRASS,
+                Inprocess:       TaskOverview[obj].IN_PROGRESS,
             })
         }
         var oJsonModelTaskOverview = new sap.ui.model.json.JSONModel();

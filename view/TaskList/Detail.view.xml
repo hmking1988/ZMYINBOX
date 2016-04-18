@@ -13,9 +13,7 @@
 		<ObjectHeader 
 			title="{TaskTitle}"
 		 >
-			<attributes> 
-			 	<ObjectAttribute text="{BuyerName}" /> 
-			 	<ObjectAttribute text="{CreatedByBp}" /> 
+			<attributes>
 				<ObjectAttribute text="{ 
 					path: 'CreatedOn', 
 					formatter: 'accenture.com.ui.zmyinbox.util.Formatter.date' 

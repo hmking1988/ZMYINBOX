@@ -5,7 +5,7 @@ jQuery.sap.require("accenture.com.ui.zmyinbox.util.HelperFunction");
 sap.ui.controller("accenture.com.ui.zmyinbox.view.Overview", {
     onInit : function () {
         accenture.com.ui.zmyinbox.util.LoadData.loadTLData();
-        accenture.com.ui.zmyinbox.util.LoadData.loadTaskOverviewData();
+        //accenture.com.ui.zmyinbox.util.LoadData.loadTaskOverviewData();
         //load user logon info
         var oModelUser= new sap.ui.model.json.JSONModel();
         oModelUser.loadData("/sap/bc/ui2/start_up");
@@ -13,11 +13,6 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.Overview", {
         
         //bind auto logoff to close tab event
             $(window).bind('beforeunload', function(e) {
-                $.ajax({
-                    type:"POST",
-                    url:accenture.com.ui.zmyinbox.util.HelperFunction.SystemRoute()+"/irj/servlet/prt/portal/prtroot/com.sap.portal.navigation.masthead.LogOutComponent?logout_submit=true",
-                    async:false
-                })
                $.ajax({
                    type: "GET",
                    url: "/sap/public/bc/icf/logoff?keepMYSAPSSO2Cookie=true",  //Clear SSO cookies: SAP Provided service to do that
@@ -70,32 +65,34 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.Overview", {
                 var startProcess = oView.byId("startProcess");
                 $.ajax({
                     url: sServiceUrl+"BPMMYHIS2Set/$count?$filter=Startdate ge '"+startDate+"' and IStarted eq 'X'",
-                        success: function (data) {
-                            oModel.setData({
-                            	startValue:data
-                            });
-                        }
+                    cache:false,
+                    success: function (data) {
+                        oModel.setData({
+                        	startValue:data
+                        });
+                    }
                 }); 
                 startProcess.setModel(oModel);
                 var oModelSp = new sap.ui.model.json.JSONModel();
                 var shenPiProcess = oView.byId("shenPiProcess");
                 $.ajax({
                     url: sServiceUrl+"BPMMYHIS2Set/$count?$filter=Startdate ge '"+startDate+"' and IReleased eq 'X'",
-                        success: function (data) {
-                            oModelSp.setData({
-                            	shenPiValue:data
-                            });
-                        }
+                    cache:false,
+                    success: function (data) {
+                        oModelSp.setData({
+                        	shenPiValue:data
+                        });
+                    }
                 }); 
                 shenPiProcess.setModel(oModelSp);
                 
                 //set task overview data for the overview page
                 accenture.com.ui.zmyinbox.util.LoadData.loadTaskOverviewData();
                 //this is to fix the custom tile issue for ie
-                if("IE"==accenture.com.ui.zmyinbox.util.HelperFunction.GetBrowserType()){
+/*                if("IE"==accenture.com.ui.zmyinbox.util.HelperFunction.GetBrowserType()){
                     //console.log("overview page rerendered for IE");
                     oView.rerender();
-                }
+                }*/
 /*                var oJsonModelTask = new sap.ui.model.json.JSONModel();
                 var oModelTask=sap.ui.getCore().getModel("customAPI");
                 oModelTask.read("/BPMTASKVIEWSet",{
@@ -137,22 +134,24 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.Overview", {
                 var startProcess = oView.byId("startProcess");
                 $.ajax({
                     url: sServiceUrl+"BPMMYHIS2Set/$count?$filter=Startdate ge '"+startDate+"' and IStarted eq 'X'",
-                        success: function (data) {
-                            oModel.setData({
-                            	startValue:data
-                            });
-                        }
+                    cache:false,
+                    success: function (data) {
+                        oModel.setData({
+                        	startValue:data
+                        });
+                    }
                 }); 
                 startProcess.setModel(oModel);
                 var oModelSp = new sap.ui.model.json.JSONModel();
                 var shenPiProcess = oView.byId("shenPiProcess");
                 $.ajax({
                     url: sServiceUrl+"BPMMYHIS2Set/$count?$filter=Startdate ge '"+startDate+"' and IReleased eq 'X'",
-                        success: function (data) {
-                            oModelSp.setData({
-                            	shenPiValue:data
-                            });
-                        }
+                    cache:false,
+                    success: function (data) {
+                        oModelSp.setData({
+                        	shenPiValue:data
+                        });
+                    }
                 }); 
                 shenPiProcess.setModel(oModelSp);
                 
@@ -332,7 +331,7 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.Overview", {
     	    sTaskJsonModel.setData(query2);
     	    sap.ui.getCore().setModel(sTaskJsonModel,"selectedTask");	        
 	    }
-	    accenture.com.ui.zmyinbox.util.LoadData.loadPTData(query,true);
+	    accenture.com.ui.zmyinbox.util.LoadData.loadPTData(query,false);
 	    app.to("ProcessTrack");
 	    //ProcessTrack.app.to("PTEmpty");
 
@@ -376,7 +375,7 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.Overview", {
     	    sTaskJsonModel.setData(query2);
     	    sap.ui.getCore().setModel(sTaskJsonModel,"selectedTask");	        
 	    }
-	    accenture.com.ui.zmyinbox.util.LoadData.loadPTData(query,true);
+	    accenture.com.ui.zmyinbox.util.LoadData.loadPTData(query,false);
 	    app.to("ProcessTrack");
 	    //ProcessTrack.app.to("PTEmpty");
 	},

@@ -1023,6 +1023,8 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.TaskList.Master", {
                 function handleDOClosure(DOKey,DOText,evt){
                     t.DOKey=DOKey;
                     t.DOText=DOText;
+                    console.log(DOKey);
+                    console.log(DOText);
                     return function(){
             			var dialog = new sap.m.Dialog({
             				title: '{i18n>DecisionOptionConfirm}',
@@ -1037,6 +1039,8 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.TaskList.Master", {
             				beginButton: new sap.m.Button({
             					text: '{i18n>DecisionOptionSubmit}',
             					press: function(){
+            					    t.DOText=DOText;
+            					    t.DOKey=DOKey;
             					    $.proxy(t.handleMassiveProcess(),t);
             					    dialog.close();
             					    

@@ -194,8 +194,8 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.TaskList.Detail", {
         var oCButton=this.byId("claimButton");
         var oRButton=this.byId("releaseButton");
         var oTaskEntity=oConext.oModel.oData[oConext.sPath.substring(1)];
-        oTaskEntity.Status="IN_PROGRESS";
-        TaskList.rerender();
+        // oTaskEntity.Status="IN_PROGRESS";
+        // TaskList.rerender();
         var sLink=accenture.com.ui.zmyinbox.util.HelperFunction.URLEnhance(UIELink,oTaskEntity.InstanceID);
         //var sLink=oTaskEntity.UIELink;
         window.open(sLink);

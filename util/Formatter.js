@@ -22,7 +22,16 @@ accenture.com.ui.zmyinbox.util.Formatter = {
 		},
 		taskTitle : function(name,title){
 		    var taskTitle="";
+		    if(title){
+    		    if(title.indexOf("\n")>0){
+    		        title=title.replace(/\n/g, " ");
+    		    }		        
+		    }
 		    if(name){
+		        var fullname=name.split(' ');
+		        if(fullname.length==2){
+		            name=fullname[1]+fullname[0];
+		        }
 		        taskTitle+=name+"："+title;
 		    }else{
 		        taskTitle=title;
