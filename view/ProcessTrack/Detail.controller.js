@@ -1,5 +1,6 @@
 jQuery.sap.require("accenture.com.ui.zmyinbox.util.NameCard");
 jQuery.sap.require("accenture.com.ui.zmyinbox.util.Formatter");
+jQuery.sap.require("accenture.com.ui.zmyinbox.util.HelperFunction");
 sap.ui.controller("accenture.com.ui.zmyinbox.view.ProcessTrack.Detail", {
     onInit: function() {
 	    var t=this;
@@ -12,7 +13,7 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.ProcessTrack.Detail", {
                     var item = $(this);
                     //customizing the icon
                     var cIcon=item.find("span.sapUiIcon");
-                    var status=cIcon.attr("aria-label")
+                    var status=cIcon.attr("aria-label");
                     if(status==="employee-approvals"){
                         cIcon.addClass("acceptLabel");
                     }else if(status==="employee-rejections"){
@@ -66,5 +67,15 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.ProcessTrack.Detail", {
 	    this.myEvt=oItem;
         accenture.com.ui.zmyinbox.util.NameCard.showNameCard(this,UniqueName);
 	},
+	handleOpen: function(evt){
+	    var oItem = evt.getSource();
+	    var bindingContext=oItem.getBindingContext();
+        var path = bindingContext.getPath();
+        var oItemData = bindingContext.getModel().getProperty(path);
+        var UIELink="/webdynpro/resources/demo.sap.com/zjenergy~wd~sd/DRJGApp?batchcode="+oItemData.Onlymark;
+        var sLink=accenture.com.ui.zmyinbox.util.HelperFunction.URLEnhance2(UIELink);
+        //var sLink=oTaskEntity.UIELink;
+        window.open(sLink);
+	}
 
 });

@@ -192,6 +192,14 @@ accenture.com.ui.zmyinbox.util.Formatter = {
 
 		  return bVisible;
 		},
+		PTopenButtonVisible: function(Onlymarkdec){
+		  var bVisible=false;
+		  if(Onlymarkdec=="SD-销售价格确认"){
+		  	bVisible=true;
+		  }
+
+		  return bVisible;
+		},
 		cancelButtonVisible: function(CreatedBy){
 		  var bVisible=false;
 		  var oUserInfo=sap.ui.getCore().getModel("UserModel").getData();

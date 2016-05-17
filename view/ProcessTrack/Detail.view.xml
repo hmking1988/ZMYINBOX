@@ -114,17 +114,20 @@
 			</items> 
 		</IconTabBar>
 
-<!--		<footer> 
+		<footer> 
 			<Bar>
 				<contentRight>
 					<Button
-					    id="claimButton"
-						text="{i18n>ClaimButtonText}"
-						icon="sap-icon://cause"
-						enabled="{TaskSupports/Claim}"
-						press="handleClaim" />
+					    id="openButton"
+						text="{i18n>OpenButtonText}"
+						icon="sap-icon://open-folder"
+						visible="{ 
+								                path: 'Onlymarkdec', 
+								                formatter: 'accenture.com.ui.zmyinbox.util.Formatter.PTopenButtonVisible' 
+						                    	}"
+						press="handleOpen" />
 				</contentRight>
 			</Bar> 
-		</footer>-->
+		</footer>
 	</Page>
 </core:View>
