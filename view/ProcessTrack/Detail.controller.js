@@ -72,7 +72,11 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.ProcessTrack.Detail", {
 	    var bindingContext=oItem.getBindingContext();
         var path = bindingContext.getPath();
         var oItemData = bindingContext.getModel().getProperty(path);
-        var UIELink="/webdynpro/resources/demo.sap.com/zjenergy~wd~sd/DRJGApp?batchcode="+oItemData.Onlymark;
+        var dict={
+        	"SD-销售价格确认":"/webdynpro/resources/demo.sap.com/zjenergy~wd~sd/DRJGApp?batchcode=",
+        	"SD-销售订单":"/irj/servlet/prt/portal/prtroot/pcd!3aportal_content!2fBPMFolder!2fiView!2fVA03?sap-config-mode=true&AutoStart=true&DynamicParameter=VBAK-VBELN="
+        }
+        var UIELink=dict[oItemData.Onlymarkdec]+oItemData.Onlymark;
         var sLink=accenture.com.ui.zmyinbox.util.HelperFunction.URLEnhance2(UIELink);
         //var sLink=oTaskEntity.UIELink;
         window.open(sLink);

@@ -194,7 +194,9 @@ accenture.com.ui.zmyinbox.util.Formatter = {
 		},
 		PTopenButtonVisible: function(Onlymarkdec){
 		  var bVisible=false;
-		  if(Onlymarkdec=="SD-销售价格确认"){
+		  if(Onlymarkdec=="SD-销售价格确认"
+		   || Onlymarkdec=="SD-销售订单"
+		   ){
 		  	bVisible=true;
 		  }
 

@@ -76,38 +76,7 @@ accenture.com.ui.zmyinbox.util.HelperFunction = {
     },
     URLEnhance2:function(ExecutionURL){
         var BPMHost=this.SystemRoute();
-        var BrowserType=this.GetBrowserType();
-        var EchancedURL=BPMHost
-                        +ExecutionURL
-                        +"&showLogOff=false";
-        var CSSURL="&sap-cssurl="+BPMHost+"/com.sap.ui.lightspeed/themes/sap_corbu/ls/";
-        switch(BrowserType){
-            case "IE":
-                CSSURL+="ls_ie6.css";
-            break;
-            case "FF":
-                CSSURL+="ls_nn7.css";
-            break;
-            case "Chrome":
-                CSSURL+="ls_sf3.css";
-            break;
-            default:
-                CSSURL+="ls_nn7.css";
-            break;
-        }
-        //check if the execution ui is using webdynpro tech
-        if(ExecutionURL.indexOf("tc~bpem~wdui~taskinstance")>=0){
-            //check if the execution ui is not using webdynpro ABAP
-            if(ExecutionURL.indexOf("com.sap.portal.appintegrator.sap.WebDynpro")<0){
-                EchancedURL+=CSSURL;
-            }else{
-                //if the execution ui is uing wd ABAP then the constructed url can not be used for safari
-                    EchancedURL=ExecutionURL;
-            }
-        }else{
-            //no need to enhance
-            EchancedURL=ExecutionURL;
-        }
+        var EchancedURL=BPMHost+ExecutionURL;
         return EchancedURL;
     },
 };
