@@ -118,6 +118,11 @@
 			<Bar>
 				<contentRight>
 					<Button
+					    id="ProcessButton"
+						text="{i18n>ProcessButtonText}"
+						icon="sap-icon://org-chart"
+						press="handleProcess" />
+					<Button
 					    id="openButton"
 						text="{i18n>OpenButtonText}"
 						icon="sap-icon://open-folder"

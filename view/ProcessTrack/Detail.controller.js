@@ -74,12 +74,28 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.ProcessTrack.Detail", {
         var oItemData = bindingContext.getModel().getProperty(path);
         var dict={
         	"SD-销售价格确认":"/webdynpro/resources/demo.sap.com/zjenergy~wd~sd/DRJGApp?batchcode=",
-        	"SD-销售订单":"/irj/servlet/prt/portal/prtroot/pcd!3aportal_content!2fBPMFolder!2fiView!2fVA03?sap-config-mode=true&AutoStart=true&DynamicParameter=VBAK-VBELN="
+        	"SD-销售订单":"/irj/servlet/prt/portal/prtroot/pcd!3aportal_content!2fBPMFolder!2fiView!2fVA03?sap-config-mode=true&AutoStart=true&DynamicParameter=VBAK-VBELN=",
+        	"项目物料需求计划流程":"/irj/servlet/prt/portal/prtroot/pcd!3aportal_content!2fBPMFolder!2fiView!2fZPSE00081?sap-config-mode=true&AutoStart=true&DynamicParameter=P_SPSNRO="
+        };
+        if(oItemData.Onlymarkdec.indexOf("项目物料需求计划流程")>=0){
+        	var UIELink=dict["项目物料需求计划流程"]+oItemData.Onlymark;
+        }else{
+        	var UIELink=dict[oItemData.Onlymarkdec]+oItemData.Onlymark;
         }
-        var UIELink=dict[oItemData.Onlymarkdec]+oItemData.Onlymark;
+
         var sLink=accenture.com.ui.zmyinbox.util.HelperFunction.URLEnhance2(UIELink);
         //var sLink=oTaskEntity.UIELink;
         window.open(sLink);
+	},
+	handleProcess: function(evt){
+	    var oItem = evt.getSource();
+	    var bindingContext=oItem.getBindingContext();
+        var path = bindingContext.getPath();
+        var oItemData = bindingContext.getModel().getProperty(path);
+        var UIELink="/webdynpro/dispatcher/sap.com/tc~bpem~wdui~procvis/AProcessVisualization?processInstanceId="+oItemData.ProInstanceid;
+        var sLink=accenture.com.ui.zmyinbox.util.HelperFunction.URLEnhance2(UIELink);
+        //var sLink=oTaskEntity.UIELink;
+        window.open(sLink);        
 	}
 
 });

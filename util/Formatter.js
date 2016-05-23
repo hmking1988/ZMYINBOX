@@ -194,11 +194,15 @@ accenture.com.ui.zmyinbox.util.Formatter = {
 		},
 		PTopenButtonVisible: function(Onlymarkdec){
 		  var bVisible=false;
-		  if(Onlymarkdec=="SD-销售价格确认"
-		   || Onlymarkdec=="SD-销售订单"
-		   ){
-		  	bVisible=true;
+		  if(Onlymarkdec){
+			  if(Onlymarkdec=="SD-销售价格确认"
+			   || Onlymarkdec=="SD-销售订单"
+			   || Onlymarkdec.indexOf("项目物料需求计划流程")>=0
+			   ){
+			  	bVisible=true;
+			  }		  	
 		  }
+
 
 		  return bVisible;
 		},
