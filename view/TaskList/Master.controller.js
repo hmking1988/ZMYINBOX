@@ -3,7 +3,7 @@ jQuery.sap.require("accenture.com.ui.zmyinbox.util.Grouper");
 jQuery.sap.require("accenture.com.ui.zmyinbox.util.Forward");
 jQuery.sap.require("accenture.com.ui.zmyinbox.util.MultiSelect");
 jQuery.sap.require("accenture.com.ui.zmyinbox.util.LoadData");
-
+jQuery.sap.require("sap.m.BusyDialog");
 
 sap.ui.controller("accenture.com.ui.zmyinbox.view.TaskList.Master", {
 	extHookChangeFilterItems: null,
@@ -902,19 +902,25 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.TaskList.Master", {
     
     	},  
 
+    onSelectAll: function(){
+    	this.getList().selectAll();
+    },
 	isMultiSelectActive: function() {
 		return (this.getList().getMode() == sap.m.ListMode.MultiSelect);
 	},
 	
 	onShowMultiSelect: function(){
 	    var oButton=this.byId("multiSelect");
+	    var oButton2=this.byId("selectAll");
 		if (!this.isMultiSelectActive()) {
 			// Turn on multi-select.
 			oButton.setIcon("sap-icon://sys-cancel");
+			oButton2.setVisible(true);
 			this.prepareMultiSelect();
 		} else {
 			// Turn off multi-select.
 			oButton.setIcon("sap-icon://multi-select");
+			oButton2.setVisible(false);
 			this.dismissMultiSelect();
 		}
 	},
@@ -1023,8 +1029,6 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.TaskList.Master", {
                 function handleDOClosure(DOKey,DOText,evt){
                     t.DOKey=DOKey;
                     t.DOText=DOText;
-                    console.log(DOKey);
-                    console.log(DOText);
                     return function(){
             			var dialog = new sap.m.Dialog({
             				title: '{i18n>DecisionOptionConfirm}',
@@ -1091,6 +1095,8 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.TaskList.Master", {
 	},
 	multiSelctFilterDialogCancel: function(){
 	    var oButton=this.byId("multiSelect");
+	    var oButton2=this.byId("selectAll");
+	    oButton2.setVisible(false);
         oButton.setIcon("sap-icon://multi-select");
 	},
 	dismissMultiSelect: function() {
@@ -1149,12 +1155,28 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.TaskList.Master", {
         this.onRefresh($.proxy(postRefresh,this));
 	},
 	handleMassiveProcess: function(){
+		if (!this._dialog2) {
+			this._dialog2 = new sap.m.BusyDialog("massiveProcess",{title:"批量审批",text:"开始批量处理..."});
+			this.getView().addDependent(this._dialog);
+		}else{
+			this._dialog2.setText("开始批量处理...");
+		}
+
+		// open dialog
+		jQuery.sap.syncStyleClass("sapUiSizeCompact", this.getView(), this._dialog);
+		this._dialog2.open();
+
+		
+		
+		
+		
 	    var t=this;
 		var sText = sap.ui.getCore().byId('confirmDialogTextarea').getValue();
 		var oList=this.getList();
 		var SelectedItems=oList.getSelectedItems();
         var oDataModel=sap.ui.getCore().getModel("standardAPI");
         oDataModel.setUseBatch(true);
+        var MPLength=SelectedItems.length;
         for(var i=0;i<SelectedItems.length;i++){
             var bindingContext=SelectedItems[i].getBindingContext();
             var path = bindingContext.getPath();
@@ -1162,12 +1184,14 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.TaskList.Master", {
             var sPath="Decision?SAP__Origin='BPM'&InstanceID='"+oItem.InstanceID+"'&DecisionKey='"+this.DOKey+"'&Comments='"+this.DOText+"'";
             var DecisionOption=oDataModel.createBatchOperation(sPath, 'POST',null,{"Content-Type":"application/json"});
             oDataModel.addBatchChangeOperations([DecisionOption]);
+            this._dialog2.setText("正在收集审批条目："+i+"/"+MPLength);
         }
         var showMessage=function(text){
             return function(){
                 sap.m.MessageToast.show(text);
             }
         }
+        this._dialog2.setText("正在向系统提交审批，共"+MPLength+"条审批条目");
     	oDataModel.submitBatch(
     		    function(data, response){
     		        //hanle each batch response
@@ -1183,17 +1207,20 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.TaskList.Master", {
         		            
         		            jQuery.sap.log.error("oData Model Batch Response Error:"+data.__batchResponses[i].response.statusCode+":"+data.__batchResponses[i].response.statusText);
                             //sap.m.MessageToast.show("部分任务处理失败");
+                            t._dialog2.close();
                             t.onRefresh(showMessage("部分任务处理失败"));
                             return;
         		        }
         		    }
         		    //sap.m.MessageToast.show("部分任务处理失败");
+        		    t._dialog2.close();
         		    t.onRefresh(showMessage("任务处理成功"));
     
                 }, 
                 function(oEvent){
                     jQuery.sap.log.error("oData Batch Response Error:"+oEvent.response.statusCode+":"+oEvent.response.statusText);
                     //sap.m.MessageToast.show("任务处理失败");
+                    t._dialog2.close();
                     t.onRefresh(showMessage("任务处理失败"));
                 },
                 true

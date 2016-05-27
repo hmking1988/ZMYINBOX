@@ -74,8 +74,8 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.ProcessTrack.Detail", {
         var oItemData = bindingContext.getModel().getProperty(path);
         var dict={
         	"SD-销售价格确认":"/webdynpro/resources/demo.sap.com/zjenergy~wd~sd/DRJGApp?batchcode=",
-        	"SD-销售订单":"/irj/servlet/prt/portal/prtroot/pcd!3aportal_content!2fBPMFolder!2fiView!2fVA03?sap-config-mode=true&AutoStart=true&DynamicParameter=VBAK-VBELN=",
-        	"项目物料需求计划流程":"/irj/servlet/prt/portal/prtroot/pcd!3aportal_content!2fBPMFolder!2fiView!2fZPSE00081?sap-config-mode=true&AutoStart=true&DynamicParameter=P_SPSNRO="
+        	"SD-销售订单":"/webdynpro/resources/demo.sap.com/zjenergy~wd~sd/ApproveDetailApp?vbeln=",
+        	"项目物料需求计划流程":"/irj/servlet/prt/portal/prtroot/pcd!3aportal_content!2fBPMFolder!2fiView!2fZPSE00081?sap-config-mode=true&AutoStart=true&DynamicParameter=P_VIEW=X;P_SPSNRO="
         };
         if(oItemData.Onlymarkdec.indexOf("项目物料需求计划流程")>=0){
         	var UIELink=dict["项目物料需求计划流程"]+oItemData.Onlymark;

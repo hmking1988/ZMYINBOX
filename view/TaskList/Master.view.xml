@@ -76,6 +76,11 @@
     					    tooltip="批量处理"
     						icon="sap-icon://multi-select"
     						press="onShowMultiSelect" />
+    					<Button
+    					    id="selectAll"
+    					    text="全选"
+    					    visible="false"
+    						press="onSelectAll" />
 						<Select 
 								id="groupSelect"
 								tooltip="分组"
