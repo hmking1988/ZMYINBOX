@@ -481,16 +481,22 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.TaskList.Master", {
 	    alert("double clicked");
 	},
 	handleSearch : function (evt) { 
-		// create model filter 
-		var filters = []; 
+		var list = this.getView().byId("list"); 
+		var binding = list.getBinding("items"); 
+		var pre_filters=binding.aFilters;
+		var filters=[];
+		for(var i=0;i<pre_filters.length;i++){
+			if(pre_filters[i].sPath!="TaskTitle"){
+				filters.push(pre_filters[i]);
+			}
+		}
 		var query = evt.getParameter("query"); 
 		if (query && query.length > 0) { 
 			var filter = new sap.ui.model.Filter("TaskTitle", sap.ui.model.FilterOperator.Contains, query); 
 			filters.push(filter); 
 		} 
 		// update list binding 
-		var list = this.getView().byId("list"); 
-		var binding = list.getBinding("items"); 
+
 		binding.filter(filters); 
 	},
 	
@@ -500,12 +506,32 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.TaskList.Master", {
     		this.nav.to("Detail", context);	        
 	    }
 	},
-	
+	handleSort: function(evt){
+		this._GLOBLE_GROUP_SORTERS=[];
+		var item = evt.getParameter("selectedItem");
+		var key = (item) ? item.getKey() : "None";
+		if("CreatedOn_A"==key){
+			this._GLOBLE_GROUP_SORTERS.push(new sap.ui.model.Sorter("CreatedOn",false));
+		}
+		if("CreatedOn_D"==key){
+			this._GLOBLE_GROUP_SORTERS.push(new sap.ui.model.Sorter("CreatedOn",true));
+		}
+		// update binding 
+		var list = this.getView().byId("list"); 
+		var oBinding = list.getBinding("items"); 
+		oBinding.sort(this._GLOBLE_GROUP_SORTERS);
+		
+		//update group select
+		if(key!=="None"){
+			this.getView().byId("groupSelect").setSelectedKey("None");
+		}
+		
+	},
 	handleGroup : function (evt) {
 		// compute sorters 
         this._GLOBLE_GROUP_SORTERS=[];
 		var item = evt.getParameter("selectedItem");
-		var key = (item) ? item.getKey() : null;
+		var key = (item) ? item.getKey() : "None";
 		accenture.com.ui.zmyinbox.util.Grouper.bundle = this.getView().getModel("i18n").getResourceBundle(); 
 		var grouper = accenture.com.ui.zmyinbox.util.Grouper[key];
 		//console.log(item.getKey());
@@ -544,6 +570,12 @@ sap.ui.controller("accenture.com.ui.zmyinbox.view.TaskList.Master", {
 		var list = this.getView().byId("list"); 
 		var oBinding = list.getBinding("items"); 
 		oBinding.sort(this._GLOBLE_GROUP_SORTERS);
+		
+		
+		//update sort select
+		if(key!=="None"){
+			this.getView().byId("sortSelect").setSelectedKey("None");
+		}
 	},
 	
 	handleFilter: function(f){

@@ -82,6 +82,24 @@
     					    visible="false"
     						press="onSelectAll" />
 						<Select 
+								id="sortSelect"
+								tooltip="排序"
+								change="handleSort" 
+								icon="sap-icon://sort" 
+								type="IconOnly" 
+								selectedKey="None" 
+								autoAdjustWidth="true" > 
+								<core:Item 
+										key="None" 
+										text="{i18n>MasterSortNone}"/> 
+								<core:Item 
+										key="CreatedOn_A" 
+										text="{i18n>MasterSortCreatedOn_A}"/>
+								<core:Item 
+										key="CreatedOn_D" 
+										text="{i18n>MasterSortCreatedOn_D}"/>
+							</Select>
+						<Select 
 								id="groupSelect"
 								tooltip="分组"
 								change="handleGroup" 
